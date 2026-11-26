@@ -1,3 +1,4 @@
+
 {
   "name": "christower-international-school",
   "version": "1.0.0",
@@ -18,7 +19,7 @@
     "express-rate-limit": "^7.5.0",
     "express-session": "^1.18.1",
     "helmet": "^8.1.0",
-    "mongodb": "^7.9.1",
+    "mongodb": "^6.22.0",
     "mongoose": "^8.9.5",
     "nodemailer": "^6.9.16",
     "socket.io": "^4.8.1"
