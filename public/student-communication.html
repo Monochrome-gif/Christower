@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a1426">
+
+  <meta name="description" content="Christower International School secure student and staff communication portal.">
+
+  <title>Christower Connect | Student Communication</title>
+
+  <!-- lets CSS hide scroll-reveal content only when JavaScript is running -->
+  <script>document.documentElement.classList.add('js');</script>
+<link rel="stylesheet" type="text/css" href="communication.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/communication.css?v=2">
+  <script src="communication-fx.js" defer></script>
+  <script src="communication.js" defer></script>
+</head>
+
+<body>
+
+<!-- =====================================
+     LANDING + SIGN-IN (scroll-driven 3D)
+====================================== -->
+
+<section class="login-screen" id="loginScreen">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- animated background -->
+  <div class="land-bg" aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+    <div class="land-grid"></div>
+    <div class="spotlight" id="spotlight"></div>
+  </div>
+
+  <!-- top navigation -->
+  <header class="land-nav" id="landNav">
+
+    <a class="land-brand" href="Cis.html">
+      <div class="logo">
+    <img src="images2.jpg" alt="Christower International School Logo">
+</div>
+      <span>
+        <b>CHRISTOWER</b>
+        <small>INTERNATIONAL SCHOOL</small>
+      </span>
+    </a>
+
+    <nav class="land-links" aria-label="Portal">
+      <a href="#features">Features</a>
+      <a href="Cis.html">School website</a>
+      <button type="button" class="nav-signin" id="navSignIn">Sign in</button>
+    </nav>
+
+  </header>
+
+  <div class="land-main">
+
+    <!-- ========== HERO + SIGN IN ========== -->
+
+    <section class="hero" id="top">
+
+      <div class="hero-copy">
+
+        <span class="badge rise" style="--d:.05s">
+          <i></i> Secure school messaging
+        </span>
+
+        <h1 class="rise" style="--d:.15s">
+          One school.<br>
+          <em>One connected</em> space.
+        </h1>
+
+        <p class="hero-lead rise" style="--d:.28s">
+          Christower Connect brings students, teachers and school
+          administrators together for class chats, private messages
+          and official announcements, all in one safe place.
+        </p>
+
+        <ul class="hero-pills rise" style="--d:.4s">
+          <li>Real-time chat</li>
+          <li>Private messages</li>
+          <li>School announcements</li>
+        </ul>
+
+        <a href="#story" class="scroll-cue rise" style="--d:.55s">
+          <span class="mouse" aria-hidden="true"></span>
+          Scroll to explore
+        </a>
+
+      </div>
+
+      <div class="hero-card-wrap rise" style="--d:.3s">
+
+        <div class="login-card" id="loginCard">
+
+          <div class="login-logo">C</div>
+
+          <h2>Christower Connect</h2>
+
+          <p class="login-description">
+            Welcome to the Christower International School
+            communication portal. Sign in using your school account.
+          </p>
+
+          <form id="loginForm">
+
+            <div class="field">
+              <label for="loginEmail">School email address</label>
+
+              <div class="input-wrap">
+                <span class="in-ico" aria-hidden="true">✉</span>
+                <input
+                  type="email"
+                  id="loginEmail"
+                  name="email"
+                  placeholder="Enter your school email"
+                  autocomplete="username"
+                  required
+                >
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="loginPassword">Password</label>
+
+              <div class="input-wrap">
+                <span class="in-ico" aria-hidden="true">🔒</span>
+                <input
+                  type="password"
+                  id="loginPassword"
+                  name="password"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  required
+                >
+                <button type="button" class="pw-toggle" id="togglePassword" aria-label="Show password">Show</button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="login-button"
+              id="loginButton"
+            >
+              Sign In
+            </button>
+
+            <p
+              class="login-error"
+              id="loginError"
+              role="alert"
+              aria-live="polite"
+            ></p>
+
+          </form>
+
+          <a href="Cis.html" class="login-back">
+            ← Back to school website
+          </a>
+
+          <small class="login-footer">
+            Christower International School · Secure School Access
+          </small>
+
+          <div class="card-glare" aria-hidden="true"></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========== 3D STORY (scroll-driven) ========== -->
+
+    <section class="story" id="story" aria-label="How Christower Connect works">
+
+      <div class="story-stage" id="stage">
+
+        <div class="stage-glow" id="stageGlow" aria-hidden="true"></div>
+
+        <div class="scene3d" id="scene3d" aria-hidden="true">
+
+          <div class="stage-shadow" id="stageShadow"></div>
+
+          <div class="device" id="device">
+
+            <!-- thickness layers -->
+            <div class="dv-edge dv-e4"></div>
+            <div class="dv-edge dv-e3"></div>
+            <div class="dv-edge dv-e2"></div>
+            <div class="dv-edge dv-e1"></div>
+
+            <!-- the app window -->
+            <div class="dv-body">
+
+              <div class="dv-bar">
+                <i></i><i></i><i></i>
+                <span>Christower Connect</span>
+              </div>
+
+              <div class="dv-grid">
+
+                <div class="dv-rail">
+                  <span class="dv-crest">C</span>
+                  <i class="on"></i><i></i><i></i><i></i>
+                </div>
+
+                <div class="dv-list">
+                  <p class="dv-h">Messages</p>
+
+                  <div class="dv-row">
+                    <span class="av gold">GN</span>
+                    <span><b>General</b><small>Welcome back, everyone</small></span>
+                  </div>
+
+                  <div class="dv-row on">
+                    <span class="av blue">SS</span>
+                    <span><b>SS2 Students</b><small>Assignment due Friday</small></span>
+                  </div>
+
+                  <div class="dv-row">
+                    <span class="av green">TC</span>
+                    <span><b>Teachers' Corner</b><small>Staff meeting at 2 pm</small></span>
+                  </div>
+
+                  <div class="dv-row">
+                    <span class="av pink">SN</span>
+                    <span><b>School Notices</b><small>Mid-term break dates</small></span>
+                  </div>
+                </div>
+
+                <div class="dv-chat">
+
+                  <div class="dv-chat-head">
+                    <span class="av blue">SS</span>
+                    <span><b>SS2 Students</b><small>School group conversation</small></span>
+                  </div>
+
+                  <div class="dv-msgs">
+                    <div class="dv-b them">Good morning, class! Please submit the assignment before Friday.</div>
+                    <div class="dv-b me">Thank you, ma. We will submit it on time.</div>
+                    <div class="dv-b them">Great. Ask here if anything is unclear.</div>
+                  </div>
+
+                  <div class="dv-compose">
+                    <span>Write a message...</span>
+                    <i>➤</i>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="dv-sheen" id="dvSheen"></div>
+
+            </div>
+
+            <!-- layers that lift out of the screen -->
+            <div class="fl fl-1" data-x="-70" data-y="-70" data-z="150">
+              <div class="fl-in" style="--bd:0s">📢 Assignment due Friday<small>SS2 Students</small></div>
+            </div>
+
+            <div class="fl fl-2" data-x="100" data-y="-80" data-z="200">
+              <div class="fl-in dark" style="--bd:-1.2s">New message<small style="color:#b9c9e6">Teachers' Corner</small></div>
+            </div>
+
+            <div class="fl fl-3" data-x="-80" data-y="60" data-z="120">
+              <div class="fl-in gold" style="--bd:-2.4s">🔒 Private &amp; secure</div>
+            </div>
+
+            <div class="fl fl-4" data-x="130" data-y="10" data-z="170">
+              <div class="fl-in" style="--bd:-3.1s">Thank you, ma! <b>✓✓</b></div>
+            </div>
+
+            <div class="fl fl-5" data-x="60" data-y="100" data-z="220">
+              <div class="fl-in" style="--bd:-0.7s">● 24 online<small>Students and staff</small></div>
+            </div>
+
+            <div class="fl fl-6" data-x="0" data-y="-100" data-z="240">
+              <div class="fl-in dark" style="--bd:-1.9s">Typing<span class="dots"><i></i><i></i><i></i></span></div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- captions that change as you scroll -->
+        <div class="stage-copy" id="stageCopy">
+
+          <article class="cap">
+            <small>01 · CONNECT</small>
+            <h2>Every class, one place.</h2>
+            <p>Jump into your class group, a school channel or a teacher's inbox without juggling a dozen different apps.</p>
+          </article>
+
+          <article class="cap">
+            <small>02 · COLLABORATE</small>
+            <h2>Groups, DMs and announcements.</h2>
+            <p>Share updates with a whole class, message a classmate privately, or read official notices from the school office.</p>
+          </article>
+
+          <article class="cap">
+            <small>03 · PROTECTED</small>
+            <h2>Respectful, school-only chat.</h2>
+            <p>Every account belongs to a real school member, so conversations stay safe, relevant and easy to trust.</p>
+          </article>
+
+        </div>
+
+        <div class="stage-steps" id="stageSteps" aria-hidden="true">
+          <i class="on"></i><i></i><i></i>
+        </div>
+
+        <div class="stage-hint" id="stageHint">Keep scrolling</div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========== FEATURES ========== -->
+
+    <section class="features" id="features">
+
+      <div class="section-head reveal">
+        <small>WHY CHRISTOWER CONNECT</small>
+        <h2>Built for everyday school life</h2>
+        <p>Everything students and staff need to stay in touch, designed to be simple on a phone and fast on a laptop.</p>
+      </div>
+
+      <div class="f-grid">
+
+        <div class="f-wrap" data-tilt-scroll>
+          <article class="f-card">
+            <span class="f-ico">💬</span>
+            <h3>Real-time messaging</h3>
+            <p>Messages arrive instantly, with a live connection status so you always know you're online.</p>
+            <span class="f-glow"></span>
+          </article>
+        </div>
+
+        <div class="f-wrap" data-tilt-scroll>
+          <article class="f-card">
+            <span class="f-ico">✉️</span>
+            <h3>Private messages</h3>
+            <p>Find any student or teacher in the school directory and start a one-to-one conversation.</p>
+            <span class="f-glow"></span>
+          </article>
+        </div>
+
+        <div class="f-wrap" data-tilt-scroll>
+          <article class="f-card">
+            <span class="f-ico">📢</span>
+            <h3>Announcements</h3>
+            <p>Official updates from the school stay in their own space, so important notices never get lost.</p>
+            <span class="f-glow"></span>
+          </article>
+        </div>
+
+        <div class="f-wrap" data-tilt-scroll>
+          <article class="f-card">
+            <span class="f-ico">🛡️</span>
+            <h3>Safe by design</h3>
+            <p>School accounts only, with community guidelines built in and a teacher to report concerns to.</p>
+            <span class="f-glow"></span>
+          </article>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========== CALL TO ACTION ========== -->
+
+    <section class="cta">
+
+      <div class="cta-panel" data-tilt-scroll>
+        <h2>Ready to connect with your school?</h2>
+        <p>Sign in with your school email and pick up your conversations right where you left them.</p>
+        <button type="button" class="cta-btn" id="ctaSignIn">Sign in now ↑</button>
+      </div>
+
+    </section>
+
+    <footer class="land-footer">
+      Christower International School · <a href="Cis.html">Back to school website</a>
+    </footer>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================
+     COMMUNICATION DASHBOARD
+====================================== -->
+
+<div class="layout" id="communicationApp" hidden>
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar" id="sidebar">
+
+    <a class="brand" href="/Cis.html">
+
+      <span class="crest">C</span>
+
+      <span>
+        <b>Christower</b>
+        <small>INTERNATIONAL SCHOOL</small>
+      </span>
+
+    </a>
+
+    <div class="school-card">
+
+      <span class="school-avatar">CS</span>
+
+      <span>
+        <b>School Community</b>
+        <small>Communication portal</small>
+      </span>
+
+      <i></i>
+
+    </div>
+
+    <p class="section-label">WORKSPACE</p>
+
+    <nav class="side-nav" id="sideNav" aria-label="Message categories">
+
+      <span class="nav-pill" id="navPill" aria-hidden="true"></span>
+
+      <button type="button" class="nav active" data-view="all">
+        <i class="ico">▦</i> <span>All messages</span>
+      </button>
+
+      <button type="button" class="nav" data-view="groups">
+        <i class="ico">◎</i> <span>Group chats</span>
+      </button>
+
+      <button type="button" class="nav" data-view="direct">
+        <i class="ico">✉</i> <span>Private messages</span>
+      </button>
+
+      <button type="button" class="nav" data-view="announcements">
+        <i class="ico">⚑</i> <span>Announcements</span>
+      </button>
+
+    </nav>
+
+    <p class="section-label class-label">SCHOOL CHANNELS</p>
+
+    <div class="channels">
+
+      <button type="button" data-chat="general">
+        # &nbsp; General
+      </button>
+
+      <button type="button" data-chat="ss2">
+        # &nbsp; SS2 Students
+      </button>
+
+      <button type="button" data-chat="teachers">
+        # &nbsp; Teachers' Corner
+      </button>
+
+      <button type="button" data-chat="notices">
+        # &nbsp; School Notices
+      </button>
+
+    </div>
+
+    <div class="side-bottom">
+
+      <div class="preview-status">
+        <i></i>
+
+        <span>
+          <b id="connectionStatus">Connecting...</b>
+          <small id="connectionDescription">Checking school account</small>
+        </span>
+
+      </div>
+
+      <button
+        id="logoutButton"
+        type="button"
+      >
+        Sign out
+      </button>
+
+      <a href="/Cis.html">
+        ← Back to school website
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="main">
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+      <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open menu"
+      >
+        ☰
+      </button>
+
+      <div>
+        <small class="kicker">CHRISTOWER CONNECT</small>
+        <h1>Student Communication</h1>
+      </div>
+
+      <label class="search">
+        ⌕
+        <input
+          id="search"
+          type="search"
+          placeholder="Search conversations..."
+          autocomplete="off"
+        >
+      </label>
+
+      <span class="user-circle" id="userCircle">SC</span>
+
+    </header>
+
+
+    <!-- WELCOME NOTICE -->
+
+    <div class="notice" id="notice">
+
+      <b>ⓘ</b>
+
+      <span>
+        <strong>Welcome to Christower Connect!</strong>
+        Communicate respectfully and keep conversations school-related.
+      </span>
+
+    </div>
+
+
+    <!-- ANNOUNCEMENTS NOTICE BOARD -->
+
+    <section class="announcements-page" id="announcementsPage" hidden>
+      <div class="announcements-heading">
+        <div>
+          <span class="announcement-eyebrow">CHRISTOWER INTERNATIONAL SCHOOL</span>
+          <h2>School Announcements</h2>
+          <p>Official updates and important notices from your school.</p>
+        </div>
+        <button type="button" class="announcement-create" id="createAnnouncementButton" hidden>
+          <span aria-hidden="true">＋</span> Create announcement
+        </button>
+      </div>
+      <div class="announcement-list" id="announcementList" aria-live="polite">
+        <div class="announcement-empty">Loading school announcements...</div>
+      </div>
+    </section>
+
+
+    <!-- MESSAGING WORKSPACE -->
+
+    <section class="workspace" id="messagingWorkspace">
+
+      <!-- INBOX -->
+
+      <aside class="inbox">
+
+        <div class="inbox-heading">
+
+          <div>
+            <h2>Messages</h2>
+            <p>Stay connected with your school</p>
+          </div>
+
+          <button
+            type="button"
+            id="newMessage"
+            class="plus"
+            aria-label="New private message"
+            title="New private message"
+          >
+            ＋
+          </button>
+
+        </div>
+
+        <div class="filters">
+
+          <button type="button" class="filter selected" data-filter="all">
+            All
+          </button>
+
+          <button type="button" class="filter" data-filter="groups">
+            Groups
+          </button>
+
+          <button type="button" class="filter" data-filter="direct">
+            Direct
+          </button>
+
+        </div>
+
+        <div id="chatList" class="chat-list">
+
+          <div class="skeleton-list" role="status" aria-label="Loading your conversations">
+            <div class="sk-row"><span class="sk-av"></span><span class="sk-lines"><i></i><i></i></span></div>
+            <div class="sk-row"><span class="sk-av"></span><span class="sk-lines"><i></i><i></i></span></div>
+            <div class="sk-row"><span class="sk-av"></span><span class="sk-lines"><i></i><i></i></span></div>
+            <div class="sk-row"><span class="sk-av"></span><span class="sk-lines"><i></i><i></i></span></div>
+          </div>
+
+        </div>
+
+      </aside>
+
+
+      <!-- ACTIVE CONVERSATION -->
+
+      <section class="conversation">
+
+        <div class="conversation-head">
+
+          <div class="avatar blue" id="activeAvatar">
+            G
+          </div>
+
+          <div class="conversation-title">
+
+            <h2 id="activeTitle">
+              Select a conversation
+            </h2>
+
+            <p id="activeSubtitle">
+              Your school communication space
+            </p>
+
+          </div>
+
+          <button
+            type="button"
+            class="info-button"
+            id="infoButton"
+            aria-label="Conversation information"
+          >
+            ⓘ
+          </button>
+
+        </div>
+
+
+        <!-- PINNED MESSAGE -->
+
+        <div class="pinned" id="pinned">
+
+          <span>⚑</span>
+
+          <div>
+            <b>Welcome to Christower Connect</b>
+
+            <small>
+              Keep conversations respectful and school-related.
+            </small>
+          </div>
+
+          <button
+            type="button"
+            id="closePinned"
+            aria-label="Dismiss"
+          >
+            ×
+          </button>
+
+        </div>
+
+
+        <!-- MESSAGES -->
+
+        <div
+          class="messages"
+          id="messages"
+          aria-live="polite"
+          aria-relevant="additions"
+        >
+
+          <div class="sk-bubble"></div>
+          <div class="sk-bubble r"></div>
+          <div class="sk-bubble"></div>
+
+        </div>
+
+
+        <!-- MESSAGE COMPOSER -->
+
+        <form class="composer" id="messageForm">
+
+          <div class="composer-note">
+            Messages should be respectful and relevant to school.
+          </div>
+
+          <div class="compose-row">
+
+            <textarea
+              id="messageInput"
+              name="body"
+              maxlength="1000"
+              rows="1"
+              placeholder="Write a message..."
+              aria-label="Write a message"
+            ></textarea>
+
+            <button
+              class="send"
+              type="submit"
+              aria-label="Send message"
+              title="Send message"
+            >
+              ➤
+            </button>
+
+          </div>
+
+          <div class="compose-foot">
+
+            <span>
+              Enter to send · Shift + Enter for a new line
+            </span>
+
+            <span id="counter">
+              0 / 1000
+            </span>
+
+          </div>
+
+        </form>
+
+      </section>
+
+
+      <!-- CONVERSATION DETAILS -->
+
+      <aside class="details">
+
+        <div class="details-banner">
+
+          <span id="detailAvatar">G</span>
+
+        </div>
+
+        <div class="details-body">
+
+          <small class="kicker">CONVERSATION</small>
+
+          <h2 id="detailTitle">
+            Conversation details
+          </h2>
+
+          <p id="detailDescription">
+            Information about your selected school conversation
+            will appear here.
+          </p>
+
+          <div class="stat">
+            <span>Members</span>
+            <b id="memberCount">—</b>
+          </div>
+
+          <div class="stat">
+            <span>Type</span>
+            <b id="chatType">—</b>
+          </div>
+
+          <hr>
+
+          <h3>Community guidelines</h3>
+
+          <ul>
+            <li>Be respectful to everyone.</li>
+            <li>Keep messages relevant to school.</li>
+            <li>Do not share private information.</li>
+            <li>Report inappropriate messages to a teacher.</li>
+          </ul>
+
+          <div class="help">
+            <b>Need help?</b>
+            <small>Contact a school administrator.</small>
+          </div>
+
+        </div>
+
+      </aside>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+  class="toast"
+  id="toast"
+  role="status"
+  aria-live="polite"
+></div>
+
+
+<!-- =====================================
+     AUTHENTICATION SCRIPT (unchanged)
+====================================== -->
+
+<script>
+(() => {
+  'use strict';
+
+  let authenticated = false;
+
+  const $ = selector => document.querySelector(selector);
+
+  function showError(message) {
+    const box = $('#loginError');
+
+    if (box) box.textContent = message;
+  }
+
+  function showDashboard(user) {
+    $('#loginScreen').hidden = true;
+    $('#communicationApp').hidden = false;
+
+    const name = user?.name || 'School member';
+
+    const initials = name
+      .split(/\s+/)
+      .map(part => part[0])
+      .join('')
+      .substring(0, 2)
+      .toUpperCase();
+
+    const circle = $('#userCircle');
+
+    if (circle) circle.textContent = initials;
+
+    const status = $('#connectionStatus');
+    const description = $('#connectionDescription');
+
+    if (status) status.textContent = 'Account active';
+
+    if (description) {
+      description.textContent = user?.role
+        ? `${user.role} account`
+        : 'School account active';
+    }
+
+    if (!authenticated) {
+      authenticated = true;
+
+      window.dispatchEvent(
+        new CustomEvent('christower:authenticated', {
+          detail: { user }
+        })
+      );
+    }
+  }
+
+  async function getSession() {
+    try {
+      const response = await fetch('/api/auth/me', {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: {
+          Accept: 'application/json'
+        }
+      });
+
+      if (response.status === 401) {
+        $('#loginScreen').hidden = false;
+        $('#communicationApp').hidden = true;
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error('Unable to verify your school account.');
+      }
+
+      const data = await response.json();
+
+      if (!data.user) {
+        throw new Error('The server did not return your account details.');
+      }
+
+      showDashboard(data.user);
+
+    } catch (error) {
+      console.error('Session verification error:', error);
+
+      $('#loginScreen').hidden = false;
+      $('#communicationApp').hidden = true;
+
+      showError(error.message);
+    }
+  }
+
+  async function login(event) {
+    event.preventDefault();
+
+    const button = $('#loginButton');
+    const email = $('#loginEmail').value.trim();
+    const password = $('#loginPassword').value;
+
+    showError('');
+
+    button.disabled = true;
+    button.textContent = 'Signing in...';
+
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error || 'Email or password is incorrect.'
+        );
+      }
+
+      if (!data.user) {
+        throw new Error('Login succeeded but user information is missing.');
+      }
+
+      $('#loginPassword').value = '';
+
+      showDashboard(data.user);
+
+    } catch (error) {
+      console.error('Login error:', error);
+      showError(error.message);
+
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Sign In';
+    }
+  }
+
+  async function logout() {
+    const button = $('#logoutButton');
+
+    if (button) button.disabled = true;
+
+    try {
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          Accept: 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Unable to sign out. Please try again.');
+      }
+
+      window.location.reload();
+
+    } catch (error) {
+      console.error('Logout error:', error);
+      showError(error.message);
+
+      if (button) button.disabled = false;
+    }
+  }
+
+  function init() {
+    $('#loginForm').addEventListener('submit', login);
+    $('#logoutButton').addEventListener('click', logout);
+
+    getSession();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
+})();
+</script>
+
+
+<!-- =====================================
+     SOCKET.IO, COMMUNICATION LOGIC, MOTION
+====================================== -->
+
+
+</body>
+</html>

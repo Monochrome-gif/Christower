@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christower International School | Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0f1d;--s1:#111a2e;--s2:#16213a;--line:#243252;--tx:#eef2f9;--mut:#8c9bb8;--brass:#e3b862;--brass2:#c99a3e;--blue:#5b8cff;--ok:#6ee7a8;--bad:#ff8a8a;--sy:0;
+--serif:"Fraunces",Georgia,serif;--sans:"Manrope",system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--tx);line-height:1.5;min-height:100vh;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.28}
+.o1{width:520px;height:520px;background:#2a4fd6;top:-140px;left:-120px;transform:translate3d(0,calc(var(--sy)*-.12px),0)}
+.o2{width:420px;height:420px;background:#b8893a;bottom:-120px;right:-80px;transform:translate3d(0,calc(var(--sy)*.1px),0)}
+.container{max-width:1160px;margin:0 auto;padding:28px 20px 80px}
+h1,h2{font-family:var(--serif);margin:0;letter-spacing:-.01em}
+h1{font-size:30px}h2{font-size:21px}
+.small{font-size:13px;color:var(--mut);margin:4px 0 0}
+.card{background:linear-gradient(180deg,var(--s2),var(--s1));border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:24px;box-shadow:0 30px 60px -30px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.04)}
+label{display:block;font-size:13px;font-weight:600;color:#c3cde0;margin-bottom:6px}
+input,select{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:#0b1426;color:var(--tx);font:inherit;font-size:14px;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus{outline:none;border-color:var(--brass);box-shadow:0 0 0 3px rgba(227,184,98,.18)}
+button:focus-visible,summary:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+button{font:inherit;font-size:14px;font-weight:700;padding:11px 18px;border:0;border-radius:10px;background:var(--brass);color:#1a1405;cursor:pointer;transition:transform .15s,background .2s,box-shadow .2s}
+button:hover{background:#f0c872;transform:translateY(-1px);box-shadow:0 8px 20px -8px rgba(227,184,98,.6)}
+button:active{transform:translateY(0)}
+button:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+button.secondary{background:#243252;color:var(--tx)}button.secondary:hover{background:#2f4167;box-shadow:none}
+button.danger{background:#7f1d2b;color:#ffd9d9}button.danger:hover{background:#9b2536;box-shadow:none}
+button.sm{padding:7px 11px;font-size:12.5px}
+button.ghost{background:transparent;color:var(--brass);padding:6px 8px}button.ghost:hover{background:rgba(227,184,98,.1);box-shadow:none}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.between{justify-content:space-between}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
+.pw{position:relative;display:flex;gap:8px}
+.message{padding:12px 14px;border-radius:10px;margin:14px 0;display:none;font-size:14px}
+.message.error{background:#4a1620;color:#ffc9c9;border:1px solid #7f2a38}
+.message.success{background:#10382a;color:#b8f5d3;border:1px solid #1d6a4a}
+.brand{display:flex;align-items:center;gap:12px}
+.crest{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--brass),#8a6422);display:grid;place-items:center;font-family:var(--serif);font-size:22px;color:#1a1405;font-weight:700}
+
+/* login */
+#loginPanel{max-width:440px;margin:12vh auto 0;perspective:1000px}
+#loginPanel .card{animation:enter .9s cubic-bezier(.2,.8,.2,1) both;transform-origin:50% 100%}
+#loginPanel.leave .card{animation:flipOut .55s cubic-bezier(.6,0,.8,.4) forwards}
+#loginPanel.shake .card{animation:shake .4s}
+#dashboard{display:none}
+#dashboard.in{animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes enter{from{opacity:0;transform:perspective(1000px) rotateX(24deg) translateY(50px)}}
+@keyframes flipOut{to{opacity:0;transform:perspective(1000px) rotateY(-70deg) scale(.9)}}
+@keyframes rise{from{opacity:0;transform:perspective(1200px) rotateX(10deg) translateY(40px)}}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+
+/* scroll-linked 3D */
+.r3d{--p:1;transform-origin:50% 100%;will-change:transform,opacity;
+transform:perspective(1200px) translateY(calc((1 - var(--p))*70px)) rotateX(calc((1 - var(--p))*16deg)) scale(calc(.93 + var(--p)*.07));
+opacity:calc(.2 + var(--p)*.8)}
+
+/* top bar */
+.top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:28px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:24px;perspective:1200px}
+.stat{margin:0;padding:20px 22px}
+.stat b{display:block;font-family:var(--serif);font-size:40px;line-height:1.1;margin-top:4px}
+.stat span{font-size:13px;color:var(--mut)}
+.stat.ok b{color:var(--ok)}.stat.off b{color:var(--bad)}
+.bars{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:16px}
+.bar{background:none;border:1px solid var(--line);border-radius:12px;padding:12px 10px;color:var(--tx);text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center}
+.bar:hover{background:#1b2a49;transform:translateY(-3px);box-shadow:none}
+.bar.on{border-color:var(--brass);background:rgba(227,184,98,.08)}
+.bar i{display:block;width:100%;height:60px;background:#0b1426;border-radius:6px;position:relative;overflow:hidden}
+.bar i u{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(0deg,var(--brass2),var(--brass));border-radius:6px;height:0;transition:height .8s cubic-bezier(.2,.8,.2,1)}
+.bar em{font-style:normal;font-size:12px;color:var(--mut)}.bar strong{font-size:15px}
+
+/* toolbar + table */
+.toolbar{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;margin:18px 0}
+.bulk{display:none;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;margin-bottom:14px;background:rgba(227,184,98,.09);border:1px solid rgba(227,184,98,.35);border-radius:12px}
+.bulk.show{display:flex;animation:rise .35s both}
+.table-wrap{overflow-x:auto;perspective:1400px;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th,td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle}
+th{color:var(--mut);font-weight:600;font-size:13px;background:#0e1830;position:sticky;top:0}
+tbody tr{transition:background .2s;animation:rowIn .55s cubic-bezier(.2,.8,.2,1) both;transform-origin:50% 0}
+tbody tr:hover{background:rgba(91,140,255,.07)}
+tbody tr:last-child td{border-bottom:0}
+@keyframes rowIn{from{opacity:0;transform:rotateX(-45deg) translateY(14px)}}
+input[type=checkbox]{width:17px;height:17px;padding:0;accent-color:var(--brass);cursor:pointer}
+.who{display:flex;align-items:center;gap:11px;font-weight:600}
+.av{width:34px;height:34px;border-radius:10px;background:#243252;display:grid;place-items:center;font-size:12px;color:var(--brass);flex:none}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;font-size:12.5px;font-weight:600}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.a{background:rgba(110,231,168,.12);color:var(--ok)}.pill.i{background:rgba(255,138,138,.12);color:var(--bad)}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.empty{text-align:center;padding:42px 16px;color:var(--mut)}
+.skel td{padding:18px 14px}.skel i{display:block;height:12px;border-radius:6px;background:linear-gradient(90deg,#16213a,#243252,#16213a);background-size:200% 100%;animation:sh 1.2s infinite}
+@keyframes sh{to{background-position:-200% 0}}
+
+/* dialogs */
+dialog{border:1px solid var(--line);border-radius:16px;background:var(--s1);color:var(--tx);padding:26px;width:min(460px,92vw);box-shadow:0 40px 80px -20px #000}
+dialog::backdrop{background:rgba(5,8,16,.7);backdrop-filter:blur(4px)}
+dialog[open]{animation:pop .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0;transform:perspective(900px) rotateX(-18deg) translateY(30px) scale(.95)}}
+dialog form>div{margin-bottom:16px}
+dialog menu{display:flex;justify-content:flex-end;gap:10px;margin:22px 0 0;padding:0}
+
+/* toasts */
+#toasts{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:99}
+.toast{padding:12px 16px;border-radius:12px;background:#16213a;border:1px solid var(--line);box-shadow:0 14px 30px -10px #000;font-size:14px;max-width:340px;animation:pop .35s both}
+.toast.success{border-color:#1d6a4a}.toast.error{border-color:#7f2a38}
+
+@media(max-width:760px){.form-grid,.toolbar,.stats{grid-template-columns:1fr}.bars{grid-template-columns:repeat(3,1fr)}h1{font-size:25px}.container{padding:16px 12px 60px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.r3d{transform:none!important;opacity:1!important}.orb{transform:none!important}}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"><div class="orb o1"></div><div class="orb o2"></div></div>
+<div id="toasts" aria-live="polite"></div>
+<div class="container">
+
+<section id="loginPanel">
+<div class="card">
+<div class="brand" style="margin-bottom:22px"><div class="crest">C</div><div><h1>Christower Admin</h1><p class="small">Administrator sign in</p></div></div>
+<div id="loginMessage" class="message error" role="alert"></div>
+<form id="loginForm">
+<div style="margin-bottom:16px"><label for="loginEmail">Email address</label>
+<input id="loginEmail" type="email" required autocomplete="username"></div>
+<div style="margin-bottom:20px"><label for="loginPassword">Password</label>
+<input id="loginPassword" type="password" required autocomplete="current-password"></div>
+<button type="submit" id="loginButton" style="width:100%">Log in</button>
+</form>
+</div>
+</section>
+
+<section id="dashboard">
+<header class="top">
+<div class="brand"><div class="crest">C</div><div><h1>School administration</h1><p class="small">Manage student accounts and access</p></div></div>
+<button class="secondary" id="logoutButton">Log out</button>
+</header>
+
+<div class="stats">
+<div class="card stat r3d"><span>Total students</span><b id="stTotal">0</b></div>
+<div class="card stat ok r3d"><span>Active accounts</span><b id="stActive">0</b></div>
+<div class="card stat off r3d"><span>Inactive accounts</span><b id="stInactive">0</b></div>
+</div>
+
+<div class="card r3d">
+<h2>Students per class</h2>
+<p class="small">Select a class to filter the list below.</p>
+<div class="bars" id="bars"></div>
+</div>
+
+<div class="card r3d">
+<h2>Create school account</h2>
+<p class="small">Create student, teacher, or school leadership accounts. The selected role is assigned at sign-in.</p>
+<div id="createMessage" class="message" role="alert"></div>
+<form id="createForm" style="margin-top:18px">
+<div class="form-grid">
+<div><label for="studentName">Full name</label>
+<input id="studentName" type="text" required maxlength="100" placeholder="Full name"></div>
+<div><label for="studentEmail">Email address</label>
+<input id="studentEmail" type="email" required placeholder="name@example.com"></div>
+<div><label for="accountRole">Account role</label>
+<select id="accountRole" required><option value="student">Student</option><option value="teacher">Teacher</option><option value="principal">Principal</option><option value="proprietor">Proprietor</option><option value="proprietress">Proprietress</option></select></div>
+<div id="classField"><label for="studentClass" id="classLabel">Student's class</label>
+<select id="studentClass" required><option value="">Select class</option></select></div>
+<div><label for="studentPassword">Temporary password</label>
+<div class="pw"><input id="studentPassword" type="password" required minlength="12" placeholder="At least 12 characters" autocomplete="new-password">
+<button type="button" class="secondary sm" id="genPw">Generate</button></div></div>
+</div>
+<button type="submit" id="createButton">Create account</button>
+</form>
+</div>
+
+<div class="card r3d">
+<div class="row between"><div><h2>Teachers and school leadership</h2><p class="small">Teacher, principal, proprietor, and proprietress accounts.</p></div><button id="refreshStaffButton" class="secondary">Refresh</button></div>
+<div class="table-wrap" style="margin-top:16px"><table style="min-width:620px"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Class</th><th>Status</th></tr></thead><tbody id="staffTable"><tr><td colspan="5" class="empty">Loading staff accounts…</td></tr></tbody></table></div>
+</div>
+
+<div class="card r3d">
+<div class="row between">
+<div><h2>Registered students</h2><p class="small" id="countLine">Student accounts in the school system</p></div>
+<div class="row"><button id="exportButton" class="secondary">Export CSV</button><button id="refreshButton" class="secondary">Refresh</button></div>
+</div>
+<div id="listMessage" class="message" role="alert"></div>
+<div class="toolbar">
+<input id="search" type="search" placeholder="Search by name or email" aria-label="Search students">
+<select id="fClass" aria-label="Filter by class"><option value="">All classes</option></select>
+<select id="fStatus" aria-label="Filter by status"><option value="">All statuses</option><option value="active">Active</option><option value="inactive">Inactive</option></select>
+<select id="sort" aria-label="Sort"><option value="az">Name A to Z</option><option value="za">Name Z to A</option><option value="class">Class</option><option value="status">Status</option></select>
+</div>
+<div class="bulk" id="bulk">
+<strong id="bulkCount">0 selected</strong>
+<button class="sm" data-bulk="activate">Activate</button>
+<button class="sm secondary" data-bulk="deactivate">Deactivate</button>
+<button class="sm secondary" data-bulk="export">Export selected</button>
+<button class="sm danger" data-bulk="delete">Delete</button>
+<button class="sm ghost" data-bulk="clear">Clear</button>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr>
+<th style="width:44px"><input type="checkbox" id="checkAll" aria-label="Select all"></th>
+<th>Name</th><th>Email</th><th>Class</th><th>Status</th><th>Actions</th>
+</tr></thead>
+<tbody id="usersTable"></tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+
+<dialog id="editDialog">
+<form method="dialog" id="editForm">
+<h2 style="margin-bottom:18px">Edit student</h2>
+<div><label for="eName">Full name</label><input id="eName" required maxlength="100"></div>
+<div><label for="eClass">Class</label><select id="eClass" required></select></div>
+<div><label for="ePw">New password (optional)</label>
+<div class="pw"><input id="ePw" type="password" minlength="8" placeholder="Leave blank to keep current" autocomplete="new-password">
+<button type="button" class="secondary sm" id="eGen">Generate</button></div>
+<p class="small">Share the new password with the student. They should change it after logging in.</p></div>
+<menu><button type="button" class="secondary" id="eCancel">Cancel</button><button type="submit" id="eSave">Save changes</button></menu>
+</form>
+</dialog>
+
+<dialog id="confirmDialog">
+<h2 id="cTitle" style="margin-bottom:10px"></h2>
+<p id="cText" class="small" style="font-size:14px"></p>
+<menu><button class="secondary" id="cNo">Cancel</button><button class="danger" id="cYes"></button></menu>
+</dialog>
+
+<script>
+const $ = id => document.getElementById(id);
+const CLASSES = ["JSS 1","JSS 2","JSS 3","SS 1","SS 2","SS 3"];
+const REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let users = [], staffUsers = [], selected = new Set(), editingId = null;
+
+async function api(url, options = {}) {
+  const response = await fetch(url, {
+    credentials: "same-origin", ...options,
+    headers: { "Content-Type": "application/json", ...(options.headers || {}) }
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.message || data.error || `Request failed (${response.status})`);
+  return data;
+}
+function showMessage(id, message, type = "error") {
+  const el = $(id); el.textContent = message; el.className = `message ${type}`; el.style.display = "block";
+}
+function toast(message, type = "success") {
+  const t = document.createElement("div");
+  t.className = `toast ${type}`; t.textContent = message; $("toasts").appendChild(t);
+  setTimeout(() => { t.style.transition = "opacity .3s"; t.style.opacity = 0; setTimeout(() => t.remove(), 300); }, 3500);
+}
+function escapeHTML(v) {
+  return String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+const idOf = u => u._id || u.id;
+const isActive = u => u.active !== false;
+const initials = n => String(n || "?").trim().split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase();
+
+/* class dropdowns */
+[$("studentClass"), $("fClass"), $("eClass")].forEach(sel => CLASSES.forEach(c => sel.add(new Option(c, c))));
+function updateRoleFields() {
+  const role = $("accountRole").value;
+  const needsClass = role === "student" || role === "teacher";
+  $("classField").style.display = needsClass ? "block" : "none";
+  $("studentClass").required = needsClass;
+  $("classLabel").textContent = role === "teacher" ? "Teacher's class" : "Student's class";
+}
+$("accountRole").addEventListener("change", updateRoleFields);
+updateRoleFields();
+
+/* password generator */
+function genPassword() {
+  const chars = "abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$";
+  const a = new Uint32Array(12); crypto.getRandomValues(a);
+  return Array.from(a, n => chars[n % chars.length]).join("");
+}
+function fillPw(input) { input.value = genPassword(); input.type = "text"; }
+$("genPw").onclick = () => fillPw($("studentPassword"));
+$("eGen").onclick = () => fillPw($("ePw"));
+
+/* scroll-linked 3D + parallax */
+let ticking = false;
+function onScroll() {
+  if (ticking) return; ticking = true;
+  requestAnimationFrame(() => {
+    document.documentElement.style.setProperty("--sy", scrollY);
+    if (!REDUCE) {
+      const vh = innerHeight;
+      document.querySelectorAll(".r3d").forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        const p = Math.min(Math.max((vh - top) / (vh * 0.55), 0), 1);
+        el.style.setProperty("--p", p.toFixed(3));
+      });
+    }
+    ticking = false;
+  });
+}
+addEventListener("scroll", onScroll, { passive: true });
+addEventListener("resize", onScroll);
+
+/* auth + views */
+function showDashboard() {
+  const login = $("loginPanel");
+  const go = () => { login.style.display = "none"; $("dashboard").style.display = "block"; $("dashboard").classList.add("in"); onScroll(); loadUsers(); };
+  if (REDUCE || login.style.display === "none") return go();
+  login.classList.add("leave"); setTimeout(go, 520);
+}
+async function checkSession() {
+  try {
+    const data = await api("/api/auth/me");
+    if (data.user && data.user.role === "admin") { $("loginPanel").style.display = "none"; showDashboard(); }
+  } catch (e) { /* not logged in */ }
+}
+$("loginForm").addEventListener("submit", async e => {
+  e.preventDefault(); $("loginButton").disabled = true;
+  try {
+    const data = await api("/api/auth/login", { method: "POST", body: JSON.stringify({ email: $("loginEmail").value.trim(), password: $("loginPassword").value }) });
+    if (!data.user || data.user.role !== "admin") throw new Error("This account is not an administrator account.");
+    showDashboard();
+  } catch (err) {
+    showMessage("loginMessage", err.message);
+    const p = $("loginPanel"); p.classList.remove("shake"); void p.offsetWidth; p.classList.add("shake");
+  } finally { $("loginButton").disabled = false; }
+});
+$("logoutButton").addEventListener("click", async () => {
+  try { await api("/api/auth/logout", { method: "POST", body: JSON.stringify({}) }); } finally { location.reload(); }
+});
+
+/* create */
+$("createForm").addEventListener("submit", async e => {
+  e.preventDefault(); $("createButton").disabled = true;
+  try {
+    const role = $("accountRole").value;
+    const result = await api("/api/admin/users", { method: "POST", body: JSON.stringify({
+      name: $("studentName").value.trim(), email: $("studentEmail").value.trim(),
+      password: $("studentPassword").value, role, className: $("studentClass").value }) });
+    const roleLabel = role.charAt(0).toUpperCase() + role.slice(1);
+    showMessage("createMessage", result.message || `${roleLabel} account created successfully.`, "success");
+    toast(`${roleLabel} account created`);
+    $("createForm").reset(); $("studentPassword").type = "password"; updateRoleFields();
+    await loadUsers();
+  } catch (err) { showMessage("createMessage", err.message); }
+  finally { $("createButton").disabled = false; }
+});
+
+/* load + render */
+async function loadUsers() {
+  $("usersTable").innerHTML = Array(4).fill('<tr class="skel">' + '<td><i></i></td>'.repeat(6) + '</tr>').join("");
+  try {
+    const data = await api("/api/admin/users");
+    users = (data.users || []).filter(u => u.role === "student");
+    staffUsers = (data.users || []).filter(u => ["teacher", "principal", "proprietor", "proprietress"].includes(u.role));
+    renderStaff();
+    const ids = new Set(users.map(idOf));
+    selected = new Set([...selected].filter(i => ids.has(i)));
+    render();
+  } catch (err) {
+    $("usersTable").innerHTML = `<tr><td colspan="6" class="empty">${escapeHTML(err.message)}</td></tr>`;
+  }
+}
+function renderStaff() {
+  const body = $("staffTable");
+  if (!staffUsers.length) {
+    body.innerHTML = '<tr><td colspan="5" class="empty">No teacher or leadership accounts yet. Create one above.</td></tr>';
+    return;
+  }
+  body.innerHTML = staffUsers.map(u => `<tr>
+    <td><div class="who"><span class="av">${escapeHTML(initials(u.name))}</span>${escapeHTML(u.name)}</div></td>
+    <td>${escapeHTML(u.email)}</td><td>${escapeHTML(u.role[0].toUpperCase() + u.role.slice(1))}</td>
+    <td>${escapeHTML(u.className || "—")}</td>
+    <td><span class="pill ${isActive(u) ? "a" : "i"}">${isActive(u) ? "Active" : "Inactive"}</span></td>
+  </tr>`).join("");
+}
+function filtered() {
+  const q = $("search").value.trim().toLowerCase(), c = $("fClass").value, s = $("fStatus").value, so = $("sort").value;
+  const list = users.filter(u =>
+    (!q || String(u.name).toLowerCase().includes(q) || String(u.email).toLowerCase().includes(q)) &&
+    (!c || u.className === c) && (!s || (s === "active") === isActive(u)));
+  const by = {
+    az: (a, b) => String(a.name).localeCompare(b.name), za: (a, b) => String(b.name).localeCompare(a.name),
+    class: (a, b) => CLASSES.indexOf(a.className) - CLASSES.indexOf(b.className) || String(a.name).localeCompare(b.name),
+    status: (a, b) => isActive(b) - isActive(a) || String(a.name).localeCompare(b.name) };
+  return list.sort(by[so]);
+}
+function renderStats() {
+  const act = users.filter(isActive).length;
+  $("stTotal").textContent = users.length; $("stActive").textContent = act; $("stInactive").textContent = users.length - act;
+  const counts = CLASSES.map(c => users.filter(u => u.className === c).length), max = Math.max(...counts, 1);
+  $("bars").innerHTML = CLASSES.map((c, i) => `<button class="bar ${$("fClass").value === c ? "on" : ""}" data-class="${c}" aria-label="${c}: ${counts[i]} students">
+    <i><u style="height:${counts[i] ? Math.max(counts[i] / max * 100, 8) : 0}%"></u></i><strong>${counts[i]}</strong><em>${c}</em></button>`).join("");
+}
+function render() {
+  renderStats();
+  const list = filtered();
+  $("countLine").textContent = `Showing ${list.length} of ${users.length} student accounts`;
+  if (!list.length) {
+    $("usersTable").innerHTML = `<tr><td colspan="6" class="empty">${users.length ? "No students match these filters. Clear the search or filters to see everyone." : "No student accounts yet. Create the first one above."}</td></tr>`;
+  } else {
+    $("usersTable").innerHTML = list.map((u, i) => {
+      const id = idOf(u), a = isActive(u);
+      return `<tr style="animation-delay:${Math.min(i, 14) * 35}ms">
+        <td><input type="checkbox" data-sel="${escapeHTML(id)}" ${selected.has(id) ? "checked" : ""} aria-label="Select ${escapeHTML(u.name)}"></td>
+        <td><div class="who"><span class="av">${escapeHTML(initials(u.name))}</span>${escapeHTML(u.name)}</div></td>
+        <td>${escapeHTML(u.email)}</td><td>${escapeHTML(u.className || "Not assigned")}</td>
+        <td><span class="pill ${a ? "a" : "i"}">${a ? "Active" : "Inactive"}</span></td>
+        <td><div class="acts" data-id="${escapeHTML(id)}">
+          <button class="sm secondary" data-act="edit">Edit</button>
+          <button class="sm ${a ? "danger" : "secondary"}" data-act="toggle">${a ? "Deactivate" : "Activate"}</button>
+          <button class="sm danger" data-act="delete">Delete</button></div></td></tr>`;
+    }).join("");
+  }
+  const ids = list.map(idOf);
+  $("checkAll").checked = ids.length > 0 && ids.every(i => selected.has(i));
+  $("bulk").classList.toggle("show", selected.size > 0);
+  $("bulkCount").textContent = `${selected.size} selected`;
+  onScroll();
+}
+
+/* toolbar events */
+["search", "fClass", "fStatus", "sort"].forEach(id => $(id).addEventListener("input", render));
+$("bars").addEventListener("click", e => {
+  const b = e.target.closest("[data-class]"); if (!b) return;
+  $("fClass").value = $("fClass").value === b.dataset.class ? "" : b.dataset.class; render();
+  $("usersTable").closest(".card").scrollIntoView({ behavior: REDUCE ? "auto" : "smooth", block: "start" });
+});
+$("refreshButton").onclick = loadUsers;
+$("refreshStaffButton").onclick = loadUsers;
+$("refreshStaffButton").onclick = loadUsers;
+$("checkAll").onchange = e => { filtered().forEach(u => e.target.checked ? selected.add(idOf(u)) : selected.delete(idOf(u))); render(); };
+$("usersTable").addEventListener("change", e => {
+  const id = e.target.dataset.sel; if (id === undefined) return;
+  e.target.checked ? selected.add(id) : selected.delete(id); render();
+});
+
+/* row actions */
+function confirmBox(title, text, yes) {
+  $("cTitle").textContent = title; $("cText").textContent = text; $("cYes").textContent = yes;
+  const d = $("confirmDialog"); d.showModal();
+  return new Promise(res => { $("cYes").onclick = () => { d.close(); res(true); }; $("cNo").onclick = () => { d.close(); res(false); }; d.oncancel = () => res(false); });
+}
+async function setStatus(id, active) { return api(`/api/admin/users/${encodeURIComponent(id)}/status`, { method: "PATCH", body: JSON.stringify({ active }) }); }
+async function removeUser(id) { return api(`/api/admin/users/${encodeURIComponent(id)}`, { method: "DELETE" }); }
+
+$("usersTable").addEventListener("click", async e => {
+  const btn = e.target.closest("[data-act]"); if (!btn) return;
+  const id = btn.closest("[data-id]").dataset.id, u = users.find(x => idOf(x) === id); if (!u) return;
+  try {
+    if (btn.dataset.act === "toggle") {
+      await setStatus(id, !isActive(u)); toast(isActive(u) ? "Account deactivated" : "Account activated"); await loadUsers();
+    } else if (btn.dataset.act === "delete") {
+      if (!await confirmBox(`Delete ${u.name}?`, "This permanently removes the account and cannot be undone. Deactivate instead to keep the record.", "Delete account")) return;
+      await removeUser(id); selected.delete(id); toast("Account deleted"); await loadUsers();
+    } else {
+      editingId = id; $("eName").value = u.name || ""; $("eClass").value = u.className || CLASSES[0]; $("ePw").value = ""; $("ePw").type = "password";
+      $("editDialog").showModal();
+    }
+  } catch (err) { showMessage("listMessage", err.message); toast(err.message, "error"); }
+});
+
+/* edit dialog */
+$("eCancel").onclick = () => $("editDialog").close();
+$("editForm").addEventListener("submit", async e => {
+  e.preventDefault(); $("eSave").disabled = true;
+  try {
+    const body = { name: $("eName").value.trim(), className: $("eClass").value };
+    if ($("ePw").value) body.password = $("ePw").value;
+    await api(`/api/admin/users/${encodeURIComponent(editingId)}`, { method: "PATCH", body: JSON.stringify(body) });
+    $("editDialog").close(); toast(body.password ? "Student updated and password reset" : "Student updated"); await loadUsers();
+  } catch (err) { toast(err.message, "error"); }
+  finally { $("eSave").disabled = false; }
+});
+
+/* bulk */
+$("bulk").addEventListener("click", async e => {
+  const act = e.target.dataset.bulk; if (!act) return;
+  const ids = [...selected];
+  if (act === "clear") { selected.clear(); return render(); }
+  if (act === "export") return exportCSV(users.filter(u => selected.has(idOf(u))));
+  if (act === "delete" && !await confirmBox(`Delete ${ids.length} account${ids.length > 1 ? "s" : ""}?`, "This permanently removes the selected accounts and cannot be undone.", "Delete accounts")) return;
+  const results = await Promise.allSettled(ids.map(id => act === "delete" ? removeUser(id) : setStatus(id, act === "activate")));
+  const failed = results.filter(r => r.status === "rejected").length;
+  toast(failed ? `${ids.length - failed} updated, ${failed} failed` : `${ids.length} account${ids.length > 1 ? "s" : ""} updated`, failed ? "error" : "success");
+  selected.clear(); await loadUsers();
+});
+
+/* CSV export (cells starting with = + - @ are neutralised against spreadsheet formula injection) */
+function csvCell(v) {
+  let s = String(v ?? ""); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+  return `"${s.replace(/"/g, '""')}"`;
+}
+function exportCSV(list) {
+  if (!list.length) return toast("There are no students to export", "error");
+  const rows = [["Name", "Email", "Class", "Status"], ...list.map(u => [u.name, u.email, u.className || "", isActive(u) ? "Active" : "Inactive"])];
+  const blob = new Blob(["\ufeff" + rows.map(r => r.map(csvCell).join(",")).join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: `christower-students-${new Date().toISOString().slice(0, 10)}.csv` });
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  toast(`Exported ${list.length} student${list.length > 1 ? "s" : ""}`);
+}
+$("exportButton").onclick = () => exportCSV(filtered());
+
+checkSession();
+</script>
+</body>
+</html>

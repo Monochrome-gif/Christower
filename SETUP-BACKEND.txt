@@ -1,0 +1,73 @@
+CHRISTOWER CONNECT — BACKEND SETUP
+
+WHAT THIS ADDS
+- School accounts only: there is no public student registration route.
+- Admin-created student and teacher accounts.
+- Hashed passwords (bcrypt), server-side sessions stored in MongoDB, HTTP-only cookies.
+- Group channels, announcements and private conversations.
+- Conversation membership checks on every message request.
+- Socket.IO authenticated real-time message delivery.
+- Existing school homepage static hosting and admissions email route retained.
+
+1. BACK UP your current server.js and package.json before replacing them.
+2. Copy this server.js and package.json into your project root (same folder as your current server.js).
+3. Keep your current public folder and copy the Christower Connect frontend files into public/:
+   student-communication.html, communication.css, communication.js
+4. In VS Code terminal, run:
+   npm install
+5. Copy .env.example to a new file named .env. Fill in MONGODB_URI, SESSION_SECRET,
+   ADMIN_EMAIL and ADMIN_PASSWORD. Keep .env private; never upload it to GitHub.
+6. IMPORTANT: the database password previously pasted into chat should be reset in Atlas.
+   Use the new password in MONGODB_URI and URL-encode special characters.
+7. Run locally:
+   npm start
+8. Open:
+   http://localhost:3000/health
+   http://localhost:3000/student-communication.html
+
+RENDER DEPLOYMENT
+- Build command: npm install
+- Start command: npm start
+- Add the same environment variables in Render > your service > Environment.
+- Set NODE_ENV=production on Render.
+- Do not upload .env to GitHub. Add .env to .gitignore.
+- Redeploy after saving the environment variables.
+
+FIRST ADMIN
+On the first successful server start, the server creates the administrator specified by
+ADMIN_NAME, ADMIN_EMAIL and ADMIN_PASSWORD, but only if that email does not already exist.
+After that, sign in and create student/teacher accounts through the protected admin API.
+
+ADMIN API (requires an administrator session cookie)
+POST /api/admin/users
+JSON: {"name":"Student Name","email":"student@example.com","password":"12+ character password","role":"student","className":"SS2"}
+Role can be student or teacher. Students must have a className.
+GET /api/admin/users
+PATCH /api/admin/users/USER_ID/status
+JSON: {"active":false}
+
+AUTH API
+POST /api/auth/login  JSON {"email":"...","password":"..."}
+GET  /api/auth/me
+POST /api/auth/logout
+
+COMMUNICATION API
+GET  /api/conversations
+POST /api/conversations/groups (teacher/admin) JSON {"title":"SS2 Students","type":"group","className":"SS2"}
+POST /api/conversations/direct JSON {"userId":"OTHER_USER_ID"}
+GET  /api/conversations/CONVERSATION_ID/messages
+POST /api/conversations/CONVERSATION_ID/messages JSON {"body":"Hello"}
+Socket.IO: authenticated client emits conversation:join with the conversation ID;
+server emits message:new to authorized members of that conversation.
+
+IMPORTANT CURRENT LIMITATION
+The supplied communication frontend is still a visual/local preview and does not yet call
+these APIs. This backend is the secure foundation; the next frontend step is to add a login
+screen and connect the conversation list/message composer to these endpoints and Socket.IO.
+Do not announce the portal as live until that integration and real-account testing are complete.
+
+SECURITY NOTES
+- Do not create student accounts from an open public form.
+- Give each student an individual login; never share one class password.
+- Use HTTPS (Render provides it), strong unique passwords and least-privilege staff accounts.
+- Review school safeguarding, student privacy and retention policies before launch.
