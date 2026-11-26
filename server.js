@@ -4,7 +4,6 @@ require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
-const nodemailer = require('nodemailer');
 const path = require('path');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -384,42 +383,48 @@ app.get('/', (req, res) => {
 });
 
 // ==========================================
-// EMAIL CONFIGURATION
+// EMAIL CONFIGURATION — BREVO HTTPS API
+// Works on Render Free because it uses HTTPS, not SMTP ports.
 // ==========================================
 
-function getTransporter() {
+async function sendAdmissionEmail({ subject, text }) {
   const required = [
-    'SMTP_HOST',
-    'SMTP_PORT',
-    'SMTP_USER',
-    'SMTP_PASS',
+    'BREVO_API_KEY',
+    'BREVO_SENDER_EMAIL',
     'SCHOOL_EMAIL'
   ];
-
   const missing = required.filter(key => !process.env[key]);
 
   if (missing.length) {
-    throw new Error(
-      `Missing email configuration: ${missing.join(', ')}`
-    );
+    throw new Error(`Missing email configuration: ${missing.join(', ')}`);
   }
 
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-
-    secure:
-      String(process.env.SMTP_SECURE).toLowerCase() === 'true',
-
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
+  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      'accept': 'application/json',
+      'api-key': process.env.BREVO_API_KEY,
+      'content-type': 'application/json'
     },
-
-    connectionTimeout: 20000,
-    greetingTimeout: 20000,
-    socketTimeout: 30000
+    body: JSON.stringify({
+      sender: {
+        name: 'Christower International School',
+        email: process.env.BREVO_SENDER_EMAIL
+      },
+      to: [{ email: process.env.SCHOOL_EMAIL }],
+      subject,
+      textContent: text
+    }),
+    signal: AbortSignal.timeout(20000)
   });
+
+  if (!response.ok) {
+    const details = await response.text();
+    // Do not print the API key or request headers to logs.
+    throw new Error(`Brevo API returned ${response.status}: ${details.slice(0, 500)}`);
+  }
+
+  return response.json().catch(() => ({}));
 }
 
 const allowedClasses = new Set([
@@ -506,11 +511,8 @@ app.post(
     }
 
     try {
-      await getTransporter().sendMail({
-        from: process.env.MAIL_FROM || process.env.SMTP_USER,
-        to: process.env.SCHOOL_EMAIL,
+      await sendAdmissionEmail({
         subject: 'New school admission enquiry',
-
         text: [
           'New admission enquiry — Christower International School',
           '',
@@ -1397,20 +1399,18 @@ async function start() {
     }
   }
 
-  if (
-    process.env.SMTP_HOST &&
-    process.env.SMTP_USER &&
-    process.env.SMTP_PASS
-  ) {
-    try {
-      await getTransporter().verify();
-      console.log('SMTP connection successful.');
-    } catch (error) {
-      console.error(
-        'SMTP verification failed:',
-        error.message
-      );
-    }
+  const missingEmailSettings = [
+    'BREVO_API_KEY',
+    'BREVO_SENDER_EMAIL',
+    'SCHOOL_EMAIL'
+  ].filter(key => !process.env[key]);
+
+  if (missingEmailSettings.length) {
+    console.warn(
+      `Admission email is not configured. Missing: ${missingEmailSettings.join(', ')}`
+    );
+  } else {
+    console.log('Brevo admission email configuration detected.');
   }
 
   server.listen(PORT, () => {
